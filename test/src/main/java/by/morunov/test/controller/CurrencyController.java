@@ -15,7 +15,7 @@ import java.util.List;
  */
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api")
+@RequestMapping
 public class CurrencyController {
 
     private final CryptoCurrencyAndNotifyService cryptoCurrencyAndNotifyService;
@@ -27,7 +27,7 @@ public class CurrencyController {
     }
 
     @PostMapping
-    public ResponseEntity<NotifyForUser> addUser(@RequestParam(value = "username") String username,
+    public ResponseEntity<NotifyForUser> notify(@RequestParam(value = "username") String username,
                                                  @RequestParam(value = "code") String code ) {
         NotifyForUser notifyForUser = cryptoCurrencyAndNotifyService.createAndSaveNotify(username, code);
         return new ResponseEntity<>(notifyForUser, HttpStatus.CREATED);

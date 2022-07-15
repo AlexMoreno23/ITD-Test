@@ -9,6 +9,8 @@ import by.morunov.test.repository.NotifyForUserRepo;
 import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ import static java.util.stream.Collectors.toList;
 @Service
 @AllArgsConstructor
 @Transactional
+@Slf4j
 public class CryptoCurrencyAndNotifyService {
 
     private final CoinLoreAPI coinLoreAPI;
@@ -47,6 +50,7 @@ public class CryptoCurrencyAndNotifyService {
     }
 
     public NotifyForUser createAndSaveNotify(String username, String currencyCode) {
+        log.info("User: " + username + " is tracking " + currencyCode);
         return notifyForUserRepo.save(new NotifyForUser(username,
                 getCurrencyByCode(currencyCode).getCurrencyCode(),
                 getCurrencyByCode(currencyCode).getCurrencyPrice()));
